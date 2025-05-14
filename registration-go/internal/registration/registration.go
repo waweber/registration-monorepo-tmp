@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"slices"
 	"time"
+
+	gonanoid "github.com/matoous/go-nanoid/v2"
 )
 
 const (
@@ -14,7 +16,7 @@ const (
 
 type RegistrationFields struct {
 	Id            string     `json:"id"`
-	EventID       string     `json:"event_id"`
+	EventId       string     `json:"event_id"`
 	Status        string     `json:"status"`
 	Version       int        `json:"version"`
 	DateCreated   time.Time  `json:"date_created"`
@@ -26,7 +28,7 @@ type RegistrationFields struct {
 	Nickname      *string    `json:"nickname,omitempty"`
 	Number        *int       `json:"number,omitempty"`
 	Email         *string    `json:"email,omitempty"`
-	AccountID     *string    `json:"account_id,omitempty"`
+	AccountId     *string    `json:"account_id,omitempty"`
 	CheckedIn     *bool      `json:"checked_in,omitempty"`
 	DateCheckedIn *time.Time `json:"date_checked_in,omitempty"`
 }
@@ -89,7 +91,7 @@ func IsRegFieldName(field string) bool {
 	return isFieldName
 }
 
-func (f *Registration) MarshalJSON() ([]byte, error) {
+func (f Registration) MarshalJSON() ([]byte, error) {
 	asMapBytes, err := json.Marshal(f.RegistrationFields)
 	if err != nil {
 		return nil, err
@@ -133,4 +135,14 @@ func (f *Registration) UnmarshalJSON(data []byte) error {
 	}
 
 	return nil
+}
+
+// Generate a new random ID
+func NewRegistrationId() string {
+	return gonanoid.MustGenerate("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 14)
+}
+
+// Validate a registration status string.
+func ValidateStatus(status string) bool {
+	return status == STATUS_PENDING || status == STATUS_CREATED || status == STATUS_CANCELED
 }

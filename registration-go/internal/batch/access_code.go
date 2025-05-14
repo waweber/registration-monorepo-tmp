@@ -3,7 +3,7 @@ package batch
 import "registration/internal/access_code"
 
 type AccessCodeTester struct {
-	AccessCodes map[string]*access_code.AccessCodeInfo
+	AccessCodes map[string]access_code.AccessCode
 }
 
 func (a *AccessCodeTester) Test(c *Change) ChangeTestResult {

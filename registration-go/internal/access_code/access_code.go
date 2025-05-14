@@ -2,15 +2,20 @@ package access_code
 
 import "time"
 
-type AccessCodeInfo struct {
-	Used        bool
+type AccessCode struct {
+	Code        string
+	EventID     string
+	DateCreated time.Time
 	DateExpires time.Time
+	Name        string
+	Used        bool
+	Options     map[string]any
 }
 
-func (a *AccessCodeInfo) IsValid() bool {
+func (a *AccessCode) IsValid() bool {
 	return a.IsValidAt(time.Now())
 }
 
-func (a *AccessCodeInfo) IsValidAt(t time.Time) bool {
+func (a *AccessCode) IsValidAt(t time.Time) bool {
 	return !a.Used && t.Before(a.DateExpires)
 }

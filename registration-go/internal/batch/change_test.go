@@ -9,16 +9,16 @@ import (
 )
 
 func TestChange(t *testing.T) {
-	old := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	old := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_PENDING,
 		Options: registration.NewOptions("a", "b"),
 	}}
-	new := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	new := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_CREATED,
 		Options: registration.NewOptions("a", "b"),
@@ -38,15 +38,15 @@ func TestChange(t *testing.T) {
 }
 
 func TestChangeVersionErr(t *testing.T) {
-	old := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	old := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_CREATED,
 	}}
-	new := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	new := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 2,
 		Status:  registration.STATUS_CREATED,
 	}}
@@ -59,12 +59,12 @@ func TestChangeVersionErr(t *testing.T) {
 }
 
 func TestChangeIDErr(t *testing.T) {
-	old := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	old := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
 		Version: 1,
 		Status:  registration.STATUS_CREATED,
 	}}
-	new := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	new := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "2",
 		Version: 1,
 		Status:  registration.STATUS_CREATED,
@@ -78,15 +78,15 @@ func TestChangeIDErr(t *testing.T) {
 }
 
 func TestChangeEventErr(t *testing.T) {
-	old := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	old := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_CREATED,
 	}}
-	new := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	new := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "b",
+		EventId: "b",
 		Version: 1,
 		Status:  registration.STATUS_CREATED,
 	}}
@@ -99,15 +99,15 @@ func TestChangeEventErr(t *testing.T) {
 }
 
 func TestChangeCancelErr(t *testing.T) {
-	old := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	old := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_CANCELED,
 	}}
-	new := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	new := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_CREATED,
 	}}
@@ -120,15 +120,15 @@ func TestChangeCancelErr(t *testing.T) {
 }
 
 func TestChangePendingErr(t *testing.T) {
-	old := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	old := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_CREATED,
 	}}
-	new := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	new := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_PENDING,
 	}}
@@ -141,16 +141,16 @@ func TestChangePendingErr(t *testing.T) {
 }
 
 func TestChangeOptionLimitErr(t *testing.T) {
-	old := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	old := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_PENDING,
 		Options: registration.NewOptions("a", "b"),
 	}}
-	new := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	new := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_CREATED,
 		Options: registration.NewOptions("a", "b"),
@@ -170,15 +170,15 @@ func TestChangeOptionLimitErr(t *testing.T) {
 }
 
 func TestChangeInvalidAccessCodeErr(t *testing.T) {
-	old := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	old := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_PENDING,
 	}}
-	new := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	new := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_CREATED,
 	}}
@@ -186,7 +186,7 @@ func TestChangeInvalidAccessCodeErr(t *testing.T) {
 	change := &batch.Change{Old: old, New: new, AccessCode: "test"}
 
 	codeTester := &batch.AccessCodeTester{
-		AccessCodes: map[string]*access_code.AccessCodeInfo{},
+		AccessCodes: map[string]access_code.AccessCode{},
 	}
 
 	res := change.Test(codeTester.Test)
@@ -197,15 +197,15 @@ func TestChangeInvalidAccessCodeErr(t *testing.T) {
 }
 
 func TestChangeExpiredAccessCodeErr(t *testing.T) {
-	old := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	old := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_PENDING,
 	}}
-	new := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	new := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_CREATED,
 	}}
@@ -213,7 +213,7 @@ func TestChangeExpiredAccessCodeErr(t *testing.T) {
 	change := &batch.Change{Old: old, New: new, AccessCode: "test"}
 
 	codeTester := &batch.AccessCodeTester{
-		AccessCodes: map[string]*access_code.AccessCodeInfo{
+		AccessCodes: map[string]access_code.AccessCode{
 			"test": {
 				Used:        false,
 				DateExpires: time.Now().Add(-10 * time.Second),
@@ -229,15 +229,15 @@ func TestChangeExpiredAccessCodeErr(t *testing.T) {
 }
 
 func TestValidAccessCode(t *testing.T) {
-	old := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	old := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_PENDING,
 	}}
-	new := &registration.Registration{RegistrationFields: registration.RegistrationFields{
+	new := registration.Registration{RegistrationFields: registration.RegistrationFields{
 		Id:      "1",
-		EventID: "a",
+		EventId: "a",
 		Version: 1,
 		Status:  registration.STATUS_CREATED,
 	}}
@@ -245,7 +245,7 @@ func TestValidAccessCode(t *testing.T) {
 	change := &batch.Change{Old: old, New: new, AccessCode: "test"}
 
 	codeTester := &batch.AccessCodeTester{
-		AccessCodes: map[string]*access_code.AccessCodeInfo{
+		AccessCodes: map[string]access_code.AccessCode{
 			"test": {
 				Used:        false,
 				DateExpires: time.Now().Add(10 * time.Second),

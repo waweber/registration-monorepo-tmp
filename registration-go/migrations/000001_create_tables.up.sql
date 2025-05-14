@@ -21,4 +21,22 @@ CREATE TABLE IF NOT EXISTS registration (
 );
 CREATE INDEX IF NOT EXISTS registration_options ON registration USING GIN (options jsonb_path_ops);
 CREATE INDEX IF NOT EXISTS registration_extra_data ON registration USING GIN (extra_data jsonb_path_ops);
+
+CREATE TABLE IF NOT EXISTS event_stats (
+    event_id VARCHAR(300) NOT NULL,
+    next_number INTEGER NOT NULL,
+    PRIMARY KEY (event_id)
+);
+
+CREATE TABLE IF NOT EXISTS access_code (
+    code VARCHAR(32) NOT NULL,
+    event_id VARCHAR(300) NOT NULL,
+    date_created TIMESTAMP WITH TIME ZONE NOT NULL,
+    date_expires TIMESTAMP WITH TIME ZONE NOT NULL,
+    name VARCHAR(300) NOT NULL,
+    used BOOLEAN NOT NULL,
+    options JSONB,
+    PRIMARY KEY (code)
+);
+
 COMMIT;

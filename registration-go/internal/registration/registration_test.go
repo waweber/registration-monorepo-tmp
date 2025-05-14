@@ -26,7 +26,7 @@ func TestRegMarshal(t *testing.T) {
 	expected := &registration.Registration{
 		RegistrationFields: registration.RegistrationFields{
 			Id:          "test",
-			EventID:     "test-event",
+			EventId:     "test-event",
 			Version:     1,
 			Status:      registration.STATUS_CREATED,
 			DateCreated: exTime,
@@ -51,7 +51,7 @@ func TestRegUnmarshal(t *testing.T) {
 	reg := &registration.Registration{
 		RegistrationFields: registration.RegistrationFields{
 			Id:          "test",
-			EventID:     "test-event",
+			EventId:     "test-event",
 			Status:      registration.STATUS_CREATED,
 			Version:     1,
 			DateCreated: exTime,

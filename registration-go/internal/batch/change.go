@@ -16,8 +16,8 @@ var (
 )
 
 type Change struct {
-	Old        *registration.Registration
-	New        *registration.Registration
+	Old        registration.Registration
+	New        registration.Registration
 	AccessCode string
 }
 
@@ -80,7 +80,7 @@ func checkChangedID(c *Change) ChangeTestResult {
 }
 
 func checkChangedEvent(c *Change) ChangeTestResult {
-	if c.New.EventID != c.Old.EventID {
+	if c.New.EventId != c.Old.EventId {
 		return ChangeTestResult{c, []ChangeError{{Code: ERROR_EVENT, Detail: "cannot change event ID"}}}
 	}
 	return ChangeTestResult{c, nil}
@@ -94,7 +94,7 @@ func checkInvalidStatus(c *Change) ChangeTestResult {
 		return ChangeTestResult{c, []ChangeError{{Code: ERROR_STATUS, Detail: "registration is canceled"}}}
 	}
 	if c.New.Status == registration.STATUS_PENDING && c.Old.Status != registration.STATUS_PENDING {
-		return ChangeTestResult{c, []ChangeError{{Code: ERROR_STATUS, Detail: "registration is already in a terminal state"}}}
+		return ChangeTestResult{c, []ChangeError{{Code: ERROR_STATUS, Detail: "registration status change not permitted"}}}
 	}
 	return ChangeTestResult{c, nil}
 }

@@ -22,10 +22,10 @@ func TestDB(t *testing.T) {
 
 	now := time.Now()
 
-	reg := &registration.Registration{
+	reg := registration.Registration{
 		RegistrationFields: registration.RegistrationFields{
 			Id: "1",
-			EventID: "1",
+			EventId: "1",
 			Status: "created",
 			Version: 1,
 			DateCreated: now,
@@ -47,10 +47,6 @@ func TestDB(t *testing.T) {
 	res, err := txn.GetRegistration(ctx, "1", "1", true)
 	if err != nil {
 		t.Error(err)
-	}
-
-	if res == nil {
-		t.Error("did not read registration")
 	}
 
 	name := "Test"
